@@ -79,14 +79,15 @@
           <div class="parallax-slow">
             <h2>About Me</h2>
             <p class="lead mt-3" style="color: var(--text-primary);">
-              I am a Computer Science student with a strong interest in Cybersecurity and Software Development.
+              Computer Science Engineer with a strong interest in Cybersecurity and Software Development.
             </p>
             <p style="color: var(--text-primary);">
-              I am a passionate and curious learner with a strong interest in technology, problem-solving, and secure
+              Passionate and curious learner with a strong interest in technology, problem-solving, and secure
               software development.
-              I focus on learning concepts such as ethical hacking, system administration, and vulnerability analysis.
-              I enjoy building secure-by-default applications and applying analytical thinking to solve software and networking challenges while continuously exploring new
-              technologies and improving my technical skills.
+              Focus on learning concepts such as ethical hacking, system administration, and vulnerability analysis.
+              Enjoys building secure-by-default applications and applying analytical thinking to solve software and
+              networking challenges while continuously exploring new
+              technologies and improving technical skills.
             </p>
           </div>
         </div>
@@ -111,8 +112,9 @@
               <p class="terminal-output">
                 - Web & Software Development<br>
                 - Network Security & Pentesting<br>
-                - AI & ML<br>
+                - AI & Automation<br>
                 - LLM Integration & RAG<br>
+                - Prompt Engineering<br>
               </p>
               <p><span class="terminal-prompt">ajas@nizam:~$</span> <span class="typewriter-cursor">|</span></p>
             </div>
@@ -430,27 +432,27 @@
 
       // 5. Staggered Section Card Parallax & Opacity Fade (Active across all pages)
       const viewportHeight = window.innerHeight;
-      
+
       paraSlow.forEach(el => {
         const rect = el.getBoundingClientRect();
         if (rect.top < viewportHeight && rect.bottom > 0) {
           const centerOffset = rect.top + rect.height / 2 - viewportHeight / 2;
           const relativeScroll = centerOffset * 0.15;
           el.style.transform = `translate3d(0, ${relativeScroll}px, 0)`;
-          
+
           // Fade parallax: elements fade in as they enter and fade out as they leave the screen
           const opacity = 1 - Math.abs(centerOffset) / (viewportHeight * 0.65);
           el.style.opacity = Math.max(0, Math.min(1, opacity));
         }
       });
-      
+
       paraFast.forEach(el => {
         const rect = el.getBoundingClientRect();
         if (rect.top < viewportHeight && rect.bottom > 0) {
           const centerOffset = rect.top + rect.height / 2 - viewportHeight / 2;
           const relativeScroll = centerOffset * 0.15;
           el.style.transform = `translate3d(0, ${-relativeScroll}px, 0)`;
-          
+
           // Fade parallax: elements fade in as they enter and fade out as they leave the screen
           const opacity = 1 - Math.abs(centerOffset) / (viewportHeight * 0.65);
           el.style.opacity = Math.max(0, Math.min(1, opacity));
