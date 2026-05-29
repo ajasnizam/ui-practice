@@ -1,4 +1,4 @@
-# Ajas Nizam | Portfolio
+# Portfolio
 
 A modern, single-page portfolio website featuring a glassmorphism design, responsive layouts, and interactive animations.
 
@@ -8,5 +8,3 @@ A modern, single-page portfolio website featuring a glassmorphism design, respon
 *   **CLI Terminal Card**: A simulated terminal showcasing skills, interests, and profile details.
 *   **Dynamic Typography**: Custom typewriter animation for hero headlines.
 *   **Modern CSS Styling**: Custom scroll progress indicator, frosted glass cards, and smooth scroll reveals.
-
-## 🚀 Running Locally
