@@ -60,11 +60,11 @@
         <span id="typewriter"></span><span class="typewriter-cursor">|</span>
       </div>
       <div class="reveal delay-300">
-        <a href="https://github.com/ajasnizam" target="_blank" class="btn btn-custom btn-custom-primary m-2">
+        <a href="https://github.com/ajasnizam" target="_blank" class="btn btn-custom btn-github m-2">
           <i class="fab fa-github"></i> GitHub
         </a>
         <a href="https://www.linkedin.com/in/ajas-nizam-aa9758212/" target="_blank"
-          class="btn btn-custom btn-custom-secondary m-2">
+          class="btn btn-custom btn-linkedin m-2">
           <i class="fab fa-linkedin"></i> LinkedIn
         </a>
       </div>
@@ -133,8 +133,8 @@
           <div class="glass-card project-card parallax-slow">
             <div>
               <h4 class="mb-3">Tourney – Turf Booking</h4>
-              <p style="color: var(--text-secondary);">
-               A responsive web platform for sports turf bookings, featuring role-based dashboards (for Users, Turf Owners, and Admins) 
+              <p style="color: var(--text-primary);">
+               A simple responsive web platform for sports turf bookings, featuring role-based dashboards (for Users, Turf Owners, and Admins) 
                and a request-based booking workflow with manual host approval.
               </p>
               <div class="project-tags">
@@ -151,16 +151,16 @@
         <div class="col-md-6 reveal reveal-slide-right delay-200">
           <div class="glass-card project-card parallax-fast">
             <div>
-              <h4 class="mb-3">RAG Educational Chatbot</h4>
-              <p style="color: var(--text-secondary);">
-                An intelligent query system leveraging BM25 document retrieval and OpenAI's API to answer student
-                questions based on specialized reading materials.
+              <h4 class="mb-3">NexRag – Academic Chatbot</h4>
+              <p style="color: var(--text-primary);">
+                A local-first academic assistant for MES Institute of Technology and Management combining an RDF knowledge graph (Apache Jena Fuseki), hybrid document retrieval (FAISS + BM25), and local LLMs (Ollama) with a FastAPI & React architecture.
               </p>
               <div class="project-tags">
-                <span class="tag">Python</span>
-                <span class="tag">BM25 Retrieval</span>
-                <span class="tag">LangChain</span>
-                <span class="tag">LLM API</span>
+                <span class="tag">FastAPI</span>
+                <span class="tag">React + Vite</span>
+                <span class="tag">Apache Fuseki</span>
+                <span class="tag">FAISS + BM25</span>
+                <span class="tag">Ollama</span>
               </div>
             </div>
             <a href="https://github.com/ajasnizam" target="_blank" class="project-link">
@@ -311,12 +311,12 @@
   <!-- Three.js (Required by Vanta) -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js"></script>
 
-  <!-- Vanta Net JS -->
-  <script src="https://cdn.jsdelivr.net/npm/vanta@latest/dist/vanta.net.min.js"></script>
+  <!-- Vanta Birds JS -->
+  <script src="https://cdn.jsdelivr.net/npm/vanta@latest/dist/vanta.birds.min.js"></script>
 
   <script>
-    // Vanta.js 3D Net Background Initialization
-    VANTA.NET({
+    // Vanta.js 3D Birds Background Initialization
+    VANTA.BIRDS({
       el: "#vanta-bg",
       mouseControls: true,
       touchControls: true,
@@ -325,10 +325,15 @@
       minWidth: 200.00,
       scale: 1.00,
       scaleMobile: 1.00,
-      color: 0x06b6d4, // Cyan connecting nodes/lines
       backgroundColor: 0x080b11, // Matches primary slate background exactly
-      points: 20.00,
-      maxDistance: 23.00
+      color1: 0x6366f1,          // Matches accent-purple
+      color2: 0x06b6d4,          // Matches accent-cyan
+      birdSize: 0.80,
+      wingSpan: 18.00,
+      speedLimit: 2.00,
+      separation: 60.00,
+      alignment: 1.00,
+      cohesion: 40.00
     });
 
     // Typewriter Text Animation
@@ -374,13 +379,15 @@
     const paraSlow = document.querySelectorAll(".parallax-slow");
     const paraFast = document.querySelectorAll(".parallax-fast");
 
-    window.addEventListener("scroll", () => {
+    function updateLayoutAndParallax() {
       const scrolled = window.scrollY;
 
       // 1. Progress Bar & Scroll Ratio
       const totalHeight = document.documentElement.scrollHeight - window.innerHeight;
       const progressRatio = totalHeight > 0 ? (scrolled / totalHeight) : 0;
-      scrollBar.style.width = `${progressRatio * 100}%`;
+      if (scrollBar) {
+        scrollBar.style.width = `${progressRatio * 100}%`;
+      }
 
       // 2. Navbar Styling Toggle
       if (scrolled > 50) {
@@ -406,14 +413,37 @@
         }
       });
 
-      // 4. Parallax Scroll Animations
+      // 4. Parallax Scroll Animations - Disabled on Mobile/Tablet (screens < 992px)
+      const isMobile = window.innerWidth < 992;
+      if (isMobile) {
+        if (heroContent) {
+          heroContent.style.transform = "";
+          heroContent.style.opacity = "";
+        }
+        if (vantaBg) {
+          vantaBg.style.transform = "";
+        }
+        if (blob1) blob1.style.transform = "";
+        if (blob2) blob2.style.transform = "";
+
+        paraSlow.forEach(el => {
+          el.style.transform = "";
+          el.style.opacity = "";
+        });
+
+        paraFast.forEach(el => {
+          el.style.transform = "";
+          el.style.opacity = "";
+        });
+        return;
+      }
+
       // Hero Content Parallax (moves up slightly slower + fades out, hardware accelerated)
       if (heroContent) {
         heroContent.style.transform = `translate3d(0, ${scrolled * 0.35}px, 0)`;
         heroContent.style.opacity = Math.max(0, 1 - scrolled / 500);
       }
 
-      // Vanta BG Parallax (continuous drift mapped smoothly to total page scroll)
       // Vanta BG Parallax (scrolls up slower than text, hardware accelerated)
       if (vantaBg) {
         const maxShift = window.innerHeight * 0.18; // safe drift within 20vh height padding
@@ -429,7 +459,7 @@
         blob2.style.transform = `translate3d(${-scrolled * 0.08}px, ${-scrolled * 0.1}px, 0)`;
       }
 
-      // 5. Staggered Section Card Parallax & Opacity Fade (Active across all pages)
+      // 5. Staggered Section Card Parallax & Opacity Fade
       const viewportHeight = window.innerHeight;
 
       paraSlow.forEach(el => {
@@ -457,7 +487,10 @@
           el.style.opacity = Math.max(0, Math.min(1, opacity));
         }
       });
-    });
+    }
+
+    window.addEventListener("scroll", updateLayoutAndParallax);
+    window.addEventListener("resize", updateLayoutAndParallax);
 
     // Intersection Observer for Scroll Reveal Animations
     const revealObserver = new IntersectionObserver((entries) => {
@@ -499,6 +532,9 @@
           }
         });
       });
+
+      // Initialize layouts and clear mobile styles if necessary
+      updateLayoutAndParallax();
     });
   </script>
 
